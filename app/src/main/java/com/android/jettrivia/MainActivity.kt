@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.android.jettrivia.model.QuestionsItem
 import com.android.jettrivia.screens.TrivaViewModel
+import com.android.jettrivia.screens.TriviaHome
 import com.android.jettrivia.ui.theme.JetTriviaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,24 +37,6 @@ private fun TriviaAppEntryPoint() {
             color = MaterialTheme.colors.background
         ) {
             TriviaHome()
-        }
-    }
-}
-@Composable
-private fun TriviaHome(questionViewModel: TrivaViewModel = viewModel()) {
-    val isLoading: Boolean? = questionViewModel.data.value.loading
-    val questions: MutableList<QuestionsItem>? = questionViewModel.data.value.data?.toMutableList()
-    val isError: Exception? = questionViewModel.data.value.e
-
-    isLoading?.let { loading ->
-        if (loading) {
-            Log.d("${MainActivity.TAG}: {LOADING}","Loading")
-        } else {
-            questions?.let { list ->
-                list.forEach { data ->
-                    Log.d("${MainActivity.TAG}: {QuestionItem}","$data")
-                }
-            }
         }
     }
 }
