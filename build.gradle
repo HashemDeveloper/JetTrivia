@@ -1,10 +1,12 @@
 buildscript {
     ext {
-        compose_version = '1.2.1'
+        compose_version = '1.2.0'
         viewmodel_version = '2.5.1'
         daggerhilt_version = '2.42'
         room_version = "2.4.3"
         coroutines_version = '1.6.1'
+        coroutines_lifecycle_scope_verions = '2.5.1'
+        retrofit_version = '2.9.0'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
