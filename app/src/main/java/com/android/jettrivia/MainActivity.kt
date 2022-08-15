@@ -32,9 +32,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun TriviaAppEntryPoint() {
     JetTriviaTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+        Surface(color = MaterialTheme.colors.background
         ) {
             TriviaHome()
         }
