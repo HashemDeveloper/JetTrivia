@@ -33,7 +33,6 @@ import com.android.jettrivia.R
 import com.android.jettrivia.model.QuestionsItem
 import com.android.jettrivia.screens.TrivaViewModel
 import com.android.jettrivia.utils.AppColor
-import java.time.temporal.TemporalAdjusters.next
 
 @Preview
 @Composable
