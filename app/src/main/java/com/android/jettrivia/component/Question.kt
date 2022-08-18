@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +54,7 @@ fun Question(viewModel: TrivaViewModel = androidx.lifecycle.viewmodel.compose.vi
                 } catch (e: Exception) {
                     null
                 }
-                questionsItem?.let {singleQuestion ->
+                questionsItem?.let { singleQuestion ->
                     QuestionDisplay(questionsItem = singleQuestion, questionIndex, viewModel) {
                         val increment = it + 1
                         questionIndex.value = increment
@@ -98,6 +100,9 @@ fun QuestionDisplay(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
+            if (index.value >= 3) {
+                ShowProgress(score = index.value)
+            }
             QuestionTracker(counter = index.value)
             DottedLine(pathEffect)
             Column {
@@ -207,6 +212,63 @@ private fun DottedLine(pathEffect: PathEffect) {
             pathEffect = pathEffect
         )
     })
+}
+
+@Preview
+@Composable
+fun ShowProgress(score: Int = 12) {
+    val progressFactorState = remember(score) {
+        mutableStateOf(score * 0.005f)
+    }
+    val gradient = Brush.linearGradient(listOf(Color(0xFFF95975), Color(0xFFBE6BE5)))
+    Row(
+        modifier = Modifier
+            .padding(3.dp)
+            .fillMaxWidth()
+            .height(45.dp)
+            .border(
+                width = 4.dp,
+                brush = Brush.linearGradient(
+                    colors = listOf(
+                        AppColor.mLightPurple,
+                        AppColor.mLightPurple
+                    )
+                ),
+                shape = RoundedCornerShape(30.dp),
+            )
+            .clip(
+                RoundedCornerShape(
+                    topEndPercent = 50,
+                    topStartPercent = 50,
+                    bottomStartPercent = 50,
+                    bottomEndPercent = 50
+                )
+            )
+            .background(Color.Transparent),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Button(
+            onClick = {},
+            contentPadding = PaddingValues(1.dp),
+            modifier = Modifier
+                .fillMaxWidth(progressFactorState.value)
+                .background(brush = gradient),
+            enabled = false,
+            elevation = null,
+            colors = buttonColors(Color.Transparent, disabledBackgroundColor = Color.Transparent)
+        ) {
+            Text(
+                text = "${score * 10}",
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(23.dp))
+                    .fillMaxHeight(0.87f)
+                    .fillMaxWidth()
+                    .padding(6.dp),
+                color = AppColor.mOffWhite,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
 }
 
 @Composable
