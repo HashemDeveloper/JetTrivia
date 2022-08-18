@@ -102,7 +102,7 @@ fun QuestionDisplay(
             if (index.value >= 3) {
                 ShowProgress(score = index.value)
             }
-            QuestionTracker(counter = index.value)
+            viewModel.getTotalQuestionCount()?.let { QuestionTracker(counter = index.value, it) }
             DottedLine(pathEffect)
             Column {
                 Text(

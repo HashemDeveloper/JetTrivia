@@ -25,4 +25,7 @@ val data: MutableState<DataOrException<MutableList<QuestionsItem>,Boolean,Except
             this@TrivaViewModel.data.value = this@TrivaViewModel.repository.getAllQuestions()
         }
     }
+    fun getTotalQuestionCount(): Int? {
+        return this.data.value.data?.toMutableList()?.size
+    }
 }
